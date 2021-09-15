@@ -8,9 +8,9 @@ import useTypedSelector from 'hooks/useTypedSelector'
 import { Role } from 'enums/Role'
 
 const Wrapper: React.FC = () => {
-  const [collapsed, setCollapsed] = useState(false)
-
   const { user } = useTypedSelector(state => state.auth)
+
+  const [collapsed, setCollapsed] = useState(false)
 
   const routes: Record<Role, RouteProps & { path: string }[]> = {
     [Role.Admin]: [

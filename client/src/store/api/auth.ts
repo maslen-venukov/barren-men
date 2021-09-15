@@ -1,11 +1,12 @@
 import { Dispatch } from 'redux'
 import axios from 'axios'
 import api from 'core/api'
-import { setAuth, setReady, setUser } from '../slices/auth'
+import { setAuth, setReady, setLoading, setUser } from '../slices/auth'
 import catchError from 'utils/catchError'
 import { AuthUser } from '../types/auth'
 
 export const login = (loginOrEmail: string, password: string) => (dispatch: Dispatch) => {
+  dispatch(setLoading(true))
   api.post<{
     accessToken: string,
     user: AuthUser
@@ -16,11 +17,7 @@ export const login = (loginOrEmail: string, password: string) => (dispatch: Disp
       localStorage.setItem('accessToken', data.accessToken)
     })
     .catch(catchError)
-    .finally(() => dispatch(setReady(true)))
-}
-
-export const register = () => (dispatch: Dispatch) => {
-
+    .finally(() => dispatch(setLoading(false)))
 }
 
 export const checkAuth = () => (dispatch: Dispatch) => {
@@ -39,6 +36,7 @@ export const checkAuth = () => (dispatch: Dispatch) => {
 }
 
 export const logout = () => (dispatch: Dispatch) => {
+  dispatch(setLoading(true))
   api.post('/auth/logout')
     .then(() => {
       dispatch(setAuth(false))
@@ -46,4 +44,5 @@ export const logout = () => (dispatch: Dispatch) => {
       localStorage.removeItem('accessToken')
     })
     .catch(catchError)
+    .finally(() => dispatch(setLoading(false)))
 }
