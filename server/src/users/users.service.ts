@@ -14,7 +14,7 @@ import { Role } from 'src/enums/role.enum'
 export class UsersService {
   constructor(
     @InjectRepository(User) private usersRepository: Repository<User>,
-    private mailerService: MailerService,
+    private mailerService: MailerService
   ) {}
 
   async create(dto: CreateUserDto) {
@@ -35,7 +35,8 @@ export class UsersService {
         <p>Логин: ${login}</p>
         <p>Пароль: ${password}</p>
       `
-    }).then(async () => {
+    })
+    .then(async () => {
       const user = this.usersRepository.create({
         ...dto,
         login,
@@ -52,6 +53,9 @@ export class UsersService {
         patronymic: user.patronymic,
         role: user.role
       }
+    })
+    .catch(() => {
+      throw new BadRequestException(Exception.SendingEmailFailed)
     })
   }
 
