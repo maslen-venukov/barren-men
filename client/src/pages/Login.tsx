@@ -1,6 +1,7 @@
 import React from 'react'
 import { Form, Input, Button } from 'antd'
 import useTypedDispatch from 'hooks/useTypedDispatch'
+import useTypedSelector from 'hooks/useTypedSelector'
 import { login } from 'store/api/auth'
 
 interface LoginFormValues {
@@ -10,6 +11,8 @@ interface LoginFormValues {
 
 const Login: React.FC = () => {
   const dispatch = useTypedDispatch()
+
+  const { loading } = useTypedSelector(state => state.auth)
 
   const [form] = Form.useForm()
 
@@ -22,9 +25,10 @@ const Login: React.FC = () => {
   return (
     <div className="login">
       <Form
+        form={form}
         onFinish={onFinish}
         layout="vertical"
-        form={form}
+        validateTrigger="onBlur"
         className="login__form"
       >
         <Form.Item
@@ -32,7 +36,7 @@ const Login: React.FC = () => {
           name="loginOrEmail"
           rules={[{ required: true, message: 'Пожалуйста введите ваш логин или email!' }]}
         >
-          <Input />
+          <Input placeholder="Логин или email" />
         </Form.Item>
 
         <Form.Item
@@ -40,11 +44,16 @@ const Login: React.FC = () => {
           name="password"
           rules={[{ required: true, message: 'Пожалуйста введите ваш пароль!' }]}
         >
-          <Input.Password />
+          <Input.Password placeholder="Пароль" />
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit" className="login__btn">
+          <Button
+            type="primary"
+            htmlType="submit"
+            loading={loading}
+            className="login__btn"
+          >
             Войти
           </Button>
         </Form.Item>

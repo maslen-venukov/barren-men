@@ -2,11 +2,7 @@ import { Body, Controller, Req, Res, Get, Post, UseGuards, UsePipes } from '@nes
 import { AuthService } from './auth.service'
 import { LoginDto } from './dto/login.dto'
 import { JwtAuthGuard } from './jwt-auth.guard'
-import { RolesGuard } from './roles.guard'
-import { Roles } from './roles.decorator'
-import { Role } from 'src/enums/role.enum'
 import { ValidationPipe } from 'src/pipes/validation.pipe'
-import { RegisterDto } from './dto/register.dto'
 import { ResponseWithCookies } from 'src/interfaces/response-with-cookies.interface'
 import { RequestWithCookies } from 'src/interfaces/request-with-cookies.interface'
 
@@ -25,15 +21,6 @@ export class AuthController {
     })
 
     return data
-  }
-
-  @Roles(Role.Admin)
-  @UseGuards(RolesGuard)
-  @UseGuards(JwtAuthGuard)
-  @UsePipes(ValidationPipe)
-  @Post('register')
-  async create(@Body() dto: RegisterDto) {
-    return await this.authService.register(dto)
   }
 
   @UseGuards(JwtAuthGuard)
