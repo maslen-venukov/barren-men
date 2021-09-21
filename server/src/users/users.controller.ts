@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Delete, Body, Param, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common'
+import { Controller, Get, Post, Delete, Body, Param, UseGuards } from '@nestjs/common'
 import { UsersService } from './users.service'
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard'
 import { RolesGuard } from 'src/auth/roles.guard'
@@ -13,7 +13,6 @@ export class UsersController {
   @Roles(Role.Admin)
   @UseGuards(RolesGuard)
   @UseGuards(JwtAuthGuard)
-  @UsePipes(ValidationPipe)
   @Post()
   async create(@Body() dto: CreateUserDto) {
     return {
