@@ -19,7 +19,6 @@ const Login: React.FC = () => {
   const onFinish = (values: LoginFormValues) => {
     const { loginOrEmail, password } = values
     dispatch(login(loginOrEmail, password))
-    form.resetFields()
   }
 
   return (
@@ -27,6 +26,7 @@ const Login: React.FC = () => {
       <Form
         form={form}
         onFinish={onFinish}
+        onFinishFailed={() => form.resetFields()}
         layout="vertical"
         validateTrigger="onBlur"
         className="login__form"

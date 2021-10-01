@@ -5,7 +5,7 @@ import {
   Index,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany,
+  OneToMany
 } from 'typeorm'
 import { Role } from 'src/enums/role.enum'
 import { Token } from 'src/tokens/token.entity'

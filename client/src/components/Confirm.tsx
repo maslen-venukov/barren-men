@@ -35,7 +35,11 @@ const Confirm: React.FC<ConfirmProps> = ({ confirmTitle, tooltipTitle, onConfirm
       visible={popconfirmVisible}
       onVisibleChange={setPopconfirmVisible}
     >
-      <Tooltip title={tooltipTitle} visible={tooltipVisible && !popconfirmVisible} onVisibleChange={setTooltipVisible} >
+      <Tooltip
+        title={tooltipTitle}
+        visible={tooltipVisible && !popconfirmVisible}
+        onVisibleChange={setTooltipVisible}
+      >
         <Button {...buttonProps} onClick={closeTooltip} />
       </Tooltip>
     </Popconfirm>
