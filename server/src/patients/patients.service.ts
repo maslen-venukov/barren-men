@@ -16,8 +16,7 @@ export class PatientsService {
 
   async create(dto: CreatePatientDto) {
     const patient = this.patientsRepository.create(dto)
-    // TODO insert alghoritm
-    const group = await this.patientsGroupsService.getSmallest()
+    const group = await this.patientsGroupsService.getGroupToInsert(dto.birthDate)
     patient.groupId = group.id
     await this.patientsRepository.save(patient)
     return {

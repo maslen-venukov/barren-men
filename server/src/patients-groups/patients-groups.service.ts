@@ -69,4 +69,67 @@ export class PatientsGroupsService {
     const groups = await this.patientsGroupsRepository.find({ relations: ['patients']})
     return groups.reduce((acc, group) => group.patients.length < acc.patients.length ? group : acc, groups[0])
   }
+
+  async getGroupToInsert(date: Date) {
+    const groups = await this.patientsGroupsRepository.find({
+      relations: ['patients']
+    })
+
+    const smallests = this.findSmallests(groups)
+    const avgs = this.countAvgs(smallests)
+    const { min, max } = this.findMinAndMax(avgs)
+
+    const resultGroupIndex = this.getResultGroupIndex(date.getTime(), min, max, avgs)
+    return smallests[resultGroupIndex]
+  }
+
+  private countAvgs(groups: PatientsGroup[]) {
+    return groups.map(group => (
+      group.patients.reduce((acc, el) => (acc += el.birthDate.getTime()), 0) / group.patients.length
+    ))
+  }
+
+  private findSmallests(groups: PatientsGroup[]) {
+    const firstSmallest = groups.reduce((acc, group) => (
+      group.patients.length < acc.patients.length ? group : acc
+    ), groups[0])
+
+    return groups.reduce((acc: PatientsGroup[], el) => (
+      el.patients.length === firstSmallest.patients.length ? [...acc, el] : acc
+    ), [])
+  }
+
+  private findMinAndMax(nums: number[]) {
+    const firstNum = nums[0]
+    const count = (callback: (acc: number, el: number) => number) => nums.reduce(callback, firstNum)
+
+    return {
+      min: count((acc, el) => el < acc ? el : acc),
+      max: count((acc, el) => el > acc ? el: acc)
+    }
+  }
+
+  private findClosest(arr: number[], num: number) {
+    return arr.reduce((acc, el) => (
+      Math.abs(el - num) < Math.abs(acc - num) ? el : acc
+    ))
+  }
+
+  private getResultGroupIndex(
+    date: number,
+    min: number,
+    max: number,
+    avgs: number[]
+  ) {
+    if(date < min) {
+      return avgs.findIndex(el => el === max)
+    }
+
+    if(date > max) {
+      return avgs.findIndex(el => el === min)
+    }
+
+    const closest = this.findClosest(avgs, date)
+    return avgs.findIndex(el => el === closest)
+  }
 }
