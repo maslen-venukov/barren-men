@@ -5,6 +5,8 @@ import { MailerModule } from '@nestjs-modules/mailer'
 import { UsersModule } from './users/users.module'
 import { AuthModule } from './auth/auth.module'
 import { TokensModule } from './tokens/tokens.module'
+import { PatientsModule } from './patients/patients.module'
+import { PatientsGroupsModule } from './patients-groups/patients-groups.module'
 
 @Module({
   imports: [
@@ -33,7 +35,9 @@ import { TokensModule } from './tokens/tokens.module'
     }),
     UsersModule,
     AuthModule,
-    TokensModule
+    TokensModule,
+    PatientsModule,
+    PatientsGroupsModule
   ]
 })
 export class AppModule {}

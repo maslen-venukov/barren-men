@@ -78,7 +78,7 @@ export class UsersService {
   }
 
   async remove(id: number) {
-    const user = await this.getById(id)
+    const user = await this.usersRepository.findOne(id)
     await this.usersRepository.remove(user)
   }
 }

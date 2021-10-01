@@ -22,7 +22,7 @@ const App: React.FC = () => {
   }, [dispatch])
 
   if(!ready) {
-    return <Loader />
+    return <Loader size="large" />
   }
 
   if(!auth || !user) {

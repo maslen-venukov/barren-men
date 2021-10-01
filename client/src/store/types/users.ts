@@ -10,7 +10,7 @@ export interface User {
   role: Role
 }
 
-export interface UserState {
+export interface UsersState {
   loading: boolean
   users: User[]
 }

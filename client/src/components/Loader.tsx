@@ -1,10 +1,14 @@
 import React from 'react'
 import { Spin } from 'antd'
 
-const Loader: React.FC = () => {
+interface LoaderProps {
+  size?: 'small' | 'large' | 'default'
+}
+
+const Loader: React.FC<LoaderProps> = ({ size }) => {
   return (
     <div className="loader">
-      <Spin size="large" />
+      <Spin size={size || 'default'} />
     </div>
   )
 }
