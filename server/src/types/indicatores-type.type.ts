@@ -1,0 +1,1 @@
+export type IndicatorsType = 'number' | 'text' | 'boolean'

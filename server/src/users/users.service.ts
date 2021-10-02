@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common'
+import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { MailerService } from '@nestjs-modules/mailer'
 import { Repository } from 'typeorm'
@@ -68,17 +68,24 @@ export class UsersService {
   }
 
   async getById(id: number) {
-    return await this.usersRepository.findOne(id)
+    const user = await this.usersRepository.findOne(id)
+    if(!user) {
+      throw new NotFoundException(Exception.UserNotFound)
+    }
+    return user
   }
 
-  async getByLoginOrEmail(login: string, email: string) {
-    return await this.usersRepository.findOne({
+  getByLoginOrEmail(login: string, email: string) {
+    return this.usersRepository.findOne({
       where: [{ login }, { email }]
     })
   }
 
   async remove(id: number) {
     const user = await this.usersRepository.findOne(id)
+    if(!user) {
+      throw new NotFoundException(Exception.UserNotFound)
+    }
     await this.usersRepository.remove(user)
   }
 }

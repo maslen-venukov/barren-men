@@ -7,6 +7,8 @@ import { AuthModule } from './auth/auth.module'
 import { TokensModule } from './tokens/tokens.module'
 import { PatientsModule } from './patients/patients.module'
 import { PatientsGroupsModule } from './patients-groups/patients-groups.module'
+import { IndicatorsModule } from './indicators/indicators.module'
+import { IndicatorsGroupsModule } from './indicators-groups/indicators-groups.module'
 
 @Module({
   imports: [
@@ -37,7 +39,9 @@ import { PatientsGroupsModule } from './patients-groups/patients-groups.module'
     AuthModule,
     TokensModule,
     PatientsModule,
-    PatientsGroupsModule
+    PatientsGroupsModule,
+    IndicatorsModule,
+    IndicatorsGroupsModule
   ]
 })
 export class AppModule {}

@@ -1,8 +1,8 @@
 import { Injectable, CanActivate, ExecutionContext, UnauthorizedException, ForbiddenException } from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
-import { JwtService } from '@nestjs/jwt';
-import { Exception } from 'src/enums/exception.enum';
-import { Role } from 'src/enums/role.enum';
+import { JwtService } from '@nestjs/jwt'
+import { Exception } from 'src/enums/exception.enum'
+import { Role } from 'src/enums/role.enum'
 import { ROLES_KEY } from './roles.decorator'
 
 @Injectable()
