@@ -13,7 +13,7 @@ export class PatientsGroupsService {
   async create(dto: CreatePatientsGroupDto) {
     const candidate = await this.patientsGroupsRepository.findOne({ number: dto.number })
     if(candidate) {
-      throw new BadRequestException(Exception.PatientsGroupAlreadyExists)
+      throw new BadRequestException(Exception.GroupAlreadyExists)
     }
     const patientsGroup = this.patientsGroupsRepository.create(dto)
     return await this.patientsGroupsRepository.save(patientsGroup)
@@ -43,7 +43,7 @@ export class PatientsGroupsService {
   async getById(id: number) {
     const patientsGroup = await this.patientsGroupsRepository.findOne(id)
     if(!patientsGroup) {
-      throw new NotFoundException(Exception.PatientsGroupNotFound)
+      throw new NotFoundException(Exception.GroupNotFound)
     }
     return patientsGroup
   }
@@ -51,7 +51,7 @@ export class PatientsGroupsService {
   async update(id: number, dto: UpdatePatientsGroupDto) {
     const patientsGroup = await this.patientsGroupsRepository.findOne(id)
     if(!patientsGroup) {
-      throw new NotFoundException(Exception.PatientsGroupNotFound)
+      throw new NotFoundException(Exception.GroupNotFound)
     }
     await this.patientsGroupsRepository.update(id, dto)
     return this.patientsGroupsRepository.findOne(id)
@@ -60,7 +60,7 @@ export class PatientsGroupsService {
   async remove(id: number) {
     const patientsGroup = await this.patientsGroupsRepository.findOne(id)
     if(!patientsGroup) {
-      throw new NotFoundException(Exception.PatientsGroupNotFound)
+      throw new NotFoundException(Exception.GroupNotFound)
     }
     return await this.patientsGroupsRepository.remove(patientsGroup)
   }

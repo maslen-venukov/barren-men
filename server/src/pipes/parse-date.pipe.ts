@@ -1,5 +1,5 @@
-import { PipeTransform, Injectable } from '@nestjs/common';
-import { CreatePatientDto } from 'src/patients/dto/create-patient.dto';
+import { PipeTransform, Injectable } from '@nestjs/common'
+import { CreatePatientDto } from 'src/patients/dto/create-patient.dto'
 
 type ParseDatePipeBody = CreatePatientDto & {
   birthDate: string
