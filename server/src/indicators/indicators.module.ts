@@ -21,6 +21,7 @@ import { IndicatorsGroupsModule } from 'src/indicators-groups/indicators-groups.
     IndicatorsGroupsModule
   ],
   controllers: [IndicatorsController],
-  providers: [IndicatorsService]
+  providers: [IndicatorsService],
+  exports: [IndicatorsService]
 })
 export class IndicatorsModule {}

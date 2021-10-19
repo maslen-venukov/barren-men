@@ -9,6 +9,8 @@ import { PatientsModule } from './patients/patients.module'
 import { PatientsGroupsModule } from './patients-groups/patients-groups.module'
 import { IndicatorsModule } from './indicators/indicators.module'
 import { IndicatorsGroupsModule } from './indicators-groups/indicators-groups.module'
+import { AnalyzesModule } from './analyzes/analyzes.module'
+import { AnalysisIndicatorsModule } from './analysis-indicators/analysis-indicators.module'
 
 @Module({
   imports: [
@@ -41,7 +43,9 @@ import { IndicatorsGroupsModule } from './indicators-groups/indicators-groups.mo
     PatientsModule,
     PatientsGroupsModule,
     IndicatorsModule,
-    IndicatorsGroupsModule
+    IndicatorsGroupsModule,
+    AnalyzesModule,
+    AnalysisIndicatorsModule
   ]
 })
 export class AppModule {}

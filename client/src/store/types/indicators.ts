@@ -29,18 +29,13 @@ export interface Indicator {
   id: number
   name: string
   type: IndicatorsType
+  groupId: number
   numberOptions?: NumberOptions
   textOptions?: TextOptions
   booleanOptions?: BooleanOptions
 }
 
-export interface IndicatorsGroup {
-  id: number
-  name: string
-  indicators: Indicator[]
-}
-
 export interface IndicatorsState {
   loading: boolean
-  indicators: IndicatorsGroup[]
+  indicators: Indicator[]
 }

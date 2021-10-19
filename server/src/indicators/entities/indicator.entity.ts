@@ -6,7 +6,8 @@ import {
   UpdateDateColumn,
   ManyToOne,
   JoinColumn,
-  OneToOne
+  OneToOne,
+  OneToMany
 } from 'typeorm'
 import { IndicatorsGroup } from 'src/indicators-groups/indicators-group.entity'
 import { IndicatorsType as IndicatorsTypeEnum } from 'src/enums/indicators-type.enum'
@@ -14,6 +15,7 @@ import { IndicatorsType } from 'src/types/indicatores-type.type'
 import { NumberIndicatorsOptions } from './number-indicators-options.entity'
 import { TextIndicatorsOptions } from './text-indicators-options.entity'
 import { BooleanIndicatorsOptions } from './boolean-indicators-options.entity'
+import { AnalysisIndicator } from 'src/analysis-indicators/analysis-indicator.entity'
 
 @Entity('indicators')
 export class Indicator {
@@ -38,12 +40,15 @@ export class Indicator {
   @JoinColumn()
   booleanOptions?: BooleanIndicatorsOptions
 
-  @Column({ select: false })
+  @Column()
   groupId: number
 
   @ManyToOne(() => IndicatorsGroup, group => group.indicators, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'groupId' })
   group: IndicatorsGroup
+
+  @OneToMany(() => Indicator, indicator => indicator.analysisIndicators)
+  analysisIndicators: AnalysisIndicator[]
 
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date

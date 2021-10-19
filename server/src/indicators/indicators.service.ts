@@ -46,8 +46,18 @@ export class IndicatorsService {
     return await this.indicatorsRepository.save(indicator)
   }
 
+  async getGroupByIndicatorId(id: number) {
+    const indicator = await this.indicatorsRepository.findOne(id, {
+      relations: ['group']
+    })
+    if(!indicator) {
+      throw new NotFoundException(Exception.IndicatorNotFound)
+    }
+    return indicator.group
+  }
+
   getAll() {
-    return this.indicatorsGroupsService.getAll()
+    return this.indicatorsRepository.find()
   }
 
   async update(id: number, dto: UpdateIndicatorDto) {
@@ -74,7 +84,7 @@ export class IndicatorsService {
           min: dto.min,
           minNorm: dto.minNorm,
           maxNorm: dto.maxNorm,
-          max: dto.maxNorm,
+          max: dto.max,
           units: dto.units
         })
         return await this.numberIndicatorsOptionsRepository.save(numberOptions)

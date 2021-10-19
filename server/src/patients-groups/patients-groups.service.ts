@@ -65,15 +65,8 @@ export class PatientsGroupsService {
     return await this.patientsGroupsRepository.remove(patientsGroup)
   }
 
-  async getSmallest() {
-    const groups = await this.patientsGroupsRepository.find({ relations: ['patients']})
-    return groups.reduce((acc, group) => group.patients.length < acc.patients.length ? group : acc, groups[0])
-  }
-
   async getGroupToInsert(date: Date) {
-    const groups = await this.patientsGroupsRepository.find({
-      relations: ['patients']
-    })
+    const groups = await this.getWithPatients()
 
     const smallests = this.findSmallests(groups)
     const avgs = this.countAvgs(smallests)
@@ -84,9 +77,10 @@ export class PatientsGroupsService {
   }
 
   private countAvgs(groups: PatientsGroup[]) {
-    return groups.map(group => (
-      group.patients.reduce((acc, el) => (acc += el.birthDate.getTime()), 0) / group.patients.length
-    ))
+    return groups.map(group => {
+      const sum = group.patients.reduce((acc, el) => acc += el.birthDate.getTime(), 0)
+      return (sum / group.patients.length) || 0
+    })
   }
 
   private findSmallests(groups: PatientsGroup[]) {
@@ -121,12 +115,12 @@ export class PatientsGroupsService {
     max: number,
     avgs: number[]
   ) {
-    if(date < min) {
-      return avgs.findIndex(el => el === max)
-    }
-
     if(date > max) {
       return avgs.findIndex(el => el === min)
+    }
+
+    if(date < min) {
+      return avgs.findIndex(el => el === max)
     }
 
     const closest = this.findClosest(avgs, date)

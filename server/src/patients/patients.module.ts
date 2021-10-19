@@ -13,6 +13,7 @@ import { PatientsGroupsModule } from 'src/patients-groups/patients-groups.module
     PatientsGroupsModule
   ],
   controllers: [PatientsController],
-  providers: [PatientsService]
+  providers: [PatientsService],
+  exports: [PatientsService]
 })
 export class PatientsModule {}

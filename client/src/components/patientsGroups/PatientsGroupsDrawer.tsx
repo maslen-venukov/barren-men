@@ -14,10 +14,9 @@ export interface PatientsGroupFormValues {
   description: string
 }
 
-interface PatientsGroupDrawerProps extends DrawerProps, FormProps {
+interface PatientsGroupDrawerProps extends DrawerProps, FormProps<PatientsGroupFormValues> {
   title: string
   submitText: string
-  onFinish: (values: PatientsGroupFormValues) => void
 }
 
 const PatientsGroupDrawer: React.FC<PatientsGroupDrawerProps> = ({

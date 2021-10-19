@@ -8,5 +8,7 @@ export enum Exception {
   GroupNotFound = 'Группа не найдена',
   PatientNotFound = 'Пациент не найден',
   IncorrectIndicatorsOptions = 'Некорректные параметры показателя',
-  IndicatorNotFound = 'Показатель не найден'
+  IndicatorNotFound = 'Показатель не найден',
+  IndicatorsListEmpty = 'Список показателей пуст',
+  AnalysisNotFound = 'Анализ не найден'
 }
