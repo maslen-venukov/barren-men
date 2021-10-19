@@ -1,5 +1,6 @@
 import { BadRequestException } from '@nestjs/common'
 import { IsString, IsDate, MaxDate, IsNotEmpty, IsPhoneNumber } from 'class-validator'
+import getTomorrow from 'src/utils/getTomorrow'
 
 export class CreatePatientDto {
   @IsString({ message: 'Фамилия должна быть строкой' })
@@ -14,12 +15,12 @@ export class CreatePatientDto {
   @IsNotEmpty({ message: 'Отчество обязательно' })
   readonly patronymic: string
 
-  @MaxDate(new Date(), { message: 'Дата рождения не может быть больше сегодняшней' })
+  @MaxDate(getTomorrow(), { message: 'Дата рождения не может быть больше сегодняшней' })
   @IsDate({ message: 'Некорректный формат даты рождения' })
   @IsNotEmpty({ message: 'Дата рождения обазательна' })
   readonly birthDate: Date
 
-  @MaxDate(new Date(), { message: 'Дата постановки диагноза бесплодия не может быть больше сегодняшней' })
+  @MaxDate(getTomorrow(), { message: 'Дата постановки диагноза бесплодия не может быть больше сегодняшней' })
   @IsDate({ message: 'Некорректный формат даты постановки диагноза бесплодия' })
   @IsNotEmpty({ message: 'Дата постановки диагноза бесплодия обазательна' })
   readonly infertilityDate: Date

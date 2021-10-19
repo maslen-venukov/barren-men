@@ -23,8 +23,7 @@ export class IndicatorsGroupsService {
     return this.indicatorsGroupsRepository.find({
       order: {
         id: 'ASC'
-      },
-      relations: ['indicators']
+      }
     })
   }
 

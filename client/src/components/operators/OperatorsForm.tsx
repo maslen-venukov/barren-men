@@ -8,9 +8,7 @@ export interface OperatorsFormValues {
   patronymic: string
 }
 
-interface OperatorsFormProps extends FormProps {
-  onFinish: (values: OperatorsFormValues) => void
-}
+interface OperatorsFormProps extends FormProps<OperatorsFormValues> {}
 
 const OperatorsForm: React.FC<OperatorsFormProps> = ({
   form,

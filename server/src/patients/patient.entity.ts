@@ -6,8 +6,10 @@ import {
   UpdateDateColumn,
   ManyToOne,
   JoinColumn,
+  OneToMany,
 } from 'typeorm'
 import { PatientsGroup } from 'src/patients-groups/patients-group.entity'
+import { Analysis } from 'src/analyzes/analysis.entity'
 
 @Entity('patients')
 export class Patient {
@@ -35,6 +37,9 @@ export class Patient {
   @ManyToOne(() => PatientsGroup, group => group.patients, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'groupId' })
   group: PatientsGroup
+
+  @OneToMany(() => Analysis, analysis => analysis.patient)
+  analyzes: Analysis[]
 
   @Column()
   phone: string

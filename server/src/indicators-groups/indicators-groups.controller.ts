@@ -24,6 +24,14 @@ export class IndicatorsGroupsController {
     }
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Get()
+  async getAll() {
+    return {
+      indicatorsGroups: await this.indicatorsGroupsService.getAll()
+    }
+  }
+
   @Roles(Role.Admin)
   @UseGuards(RolesGuard)
   @UseGuards(JwtAuthGuard)

@@ -14,10 +14,9 @@ export interface PatientsFormValues {
   address: string
 }
 
-interface PatientsDrawerProps extends DrawerProps, FormProps {
+interface PatientsDrawerProps extends DrawerProps, FormProps<PatientsFormValues> {
   title: string
   submitText: string
-  onFinish: (values: PatientsFormValues) => void
 }
 
 const PatientsDrawer: React.FC<PatientsDrawerProps> = ({

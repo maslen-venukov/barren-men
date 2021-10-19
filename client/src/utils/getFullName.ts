@@ -1,7 +1,17 @@
-const getFullName = (person: {
+interface Person {
   lastName: string
   firstName: string
   patronymic: string
-}) => `${person.lastName} ${person.firstName[0]}. ${person.patronymic[0]}.`
+}
+
+const getFullName = (person: Person, abbreviated = true) => {
+  const { lastName, firstName, patronymic } = person
+
+  if(abbreviated) {
+    return `${lastName} ${firstName[0]}. ${patronymic[0]}.`
+  }
+
+  return `${lastName} ${firstName} ${patronymic}`
+}
 
 export default getFullName

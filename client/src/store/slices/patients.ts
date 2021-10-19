@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Patient, PatientsGroupWithPatients, PatientsState } from '../types/patients'
+import { CurrentPatient, Patient, PatientsGroupWithPatients, PatientsState } from '../types/patients'
 
 const initialState: PatientsState = {
   loading: false,
-  patients: []
+  patients: [],
+  currentPatient: null
 }
 
 const patientsSlice = createSlice({
@@ -12,6 +13,9 @@ const patientsSlice = createSlice({
   reducers: {
     setPatients(state, action: PayloadAction<PatientsGroupWithPatients[]>) {
       state.patients = action.payload
+    },
+    setCurrentPatient(state, action: PayloadAction<CurrentPatient | null>) {
+      state.currentPatient = action.payload
     },
     createPatient(state, action: PayloadAction<{
       patient: Patient,
@@ -36,6 +40,12 @@ const patientsSlice = createSlice({
         patients: group.patients.filter(patient => patient.id !== action.payload)
       }))
     },
+    updateCurrentPatient(state, action: PayloadAction<Patient>) {
+      state.currentPatient = state.currentPatient ? {
+        group: state.currentPatient.group,
+        ...action.payload
+      } : null
+    },
     setLoading(state, action: PayloadAction<boolean>) {
       state.loading = action.payload
     }
@@ -44,9 +54,11 @@ const patientsSlice = createSlice({
 
 export const {
   setPatients,
+  setCurrentPatient,
   createPatient,
   updatePatient,
   removePatient,
+  updateCurrentPatient,
   setLoading
 } = patientsSlice.actions
 

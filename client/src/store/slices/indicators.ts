@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { IndicatorsState, IndicatorsGroup } from '../types/indicators'
+import { Indicator, IndicatorsState } from '../types/indicators'
 
 const initialState: IndicatorsState = {
   loading: false,
@@ -10,7 +10,7 @@ const indicatorsSlice = createSlice({
   name: 'indicators',
   initialState,
   reducers: {
-    setIndicators(state, action: PayloadAction<IndicatorsGroup[]>) {
+    setIndicators(state, action: PayloadAction<Indicator[]>) {
       state.indicators = action.payload
     },
     setLoading(state, action: PayloadAction<boolean>) {
